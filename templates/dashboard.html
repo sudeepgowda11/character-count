@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and viewport responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
+    <title>Character Count - Text Analysis Tool</title>
+    
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo / Brand Name -->
+            <div class="nav-brand">
+                <span class="brand-icon">📝</span>
+                <h1>Character Count</h1>
+            </div>
+            
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="{{ url_for('dashboard') }}" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h2 class="hero-title">Analyze Your Text</h2>
+                <p class="hero-description">
+                    Instantly count characters, words, sentences, and get detailed text statistics. 
+                    Perfect for writers, students, and content creators.
+                </p>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="form-section">
+            <!-- Error Message Display (if any) -->
+            {% if error %}
+            <div class="error-message">
+                <span class="error-icon">⚠️</span>
+                <p>{{ error }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Text Input Form -->
+            <form method="POST" action="{{ url_for('dashboard') }}" class="analysis-form">
+                
+                <!-- Form Label -->
+                <label for="text_input" class="form-label">
+                    Enter Your Text
+                </label>
+
+                <!-- Character Counter (Live Update) -->
+                <div class="char-counter-container">
+                    <span class="char-count">Characters: <strong id="live-count">0</strong></span>
+                    <span class="word-count">Words: <strong id="live-words">0</strong></span>
+                </div>
+
+                <!-- Textarea for Text Input -->
+                <textarea 
+                    id="text_input" 
+                    name="text_input" 
+                    class="form-textarea"
+                    placeholder="Enter your text here... (letters, numbers, symbols, paragraphs, etc.)"
+                    spellcheck="true"
+                ></textarea>
+
+                <!-- Form Buttons Container -->
+                <div class="form-buttons">
+                    <!-- Analyze Button with Loading State -->
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary"
+                        id="analyze-btn"
+                    >
+                        <span class="btn-text">Analyze Text</span>
+                        <span class="btn-loader" style="display: none;">
+                            <span class="spinner"></span>
+                        </span>
+                    </button>
+
+                    <!-- Reset Button -->
+                    <button 
+                        type="reset" 
+                        class="btn btn-secondary"
+                        id="reset-btn"
+                    >
+                        Clear Text
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features-section">
+            <h3 class="section-title">Features</h3>
+            
+            <div class="features-grid">
+                <!-- Feature Card 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon">🔤</div>
+                    <h4>Character Analysis</h4>
+                    <p>Count total characters, letters, numbers, spaces, and special symbols.</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h4>Advanced Statistics</h4>
+                    <p>Get word count, sentence count, vowels, consonants, and averages.</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Instant Results</h4>
+                    <p>Get detailed analysis in real-time with live character counting.</p>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h4>Responsive Design</h4>
+                    <p>Works perfectly on desktop, tablet, and mobile devices.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <h3 class="section-title">How It Works</h3>
+            <div class="about-content">
+                <p>
+                    <strong>Character Count</strong> is a simple yet powerful text analysis tool designed to help you understand 
+                    your text better. Simply paste or type your text into the textarea above, click "Analyze Text", 
+                    and receive comprehensive statistics about your content.
+                </p>
+                <p>
+                    Our application analyzes every aspect of your text, from basic character counts to advanced metrics 
+                    like average word length and sentence complexity. Perfect for writers, educators, and content creators.
+                </p>
+                <div class="stats-preview">
+                    <div class="stat-preview-item">
+                        <span class="stat-emoji">🎯</span>
+                        <span>Total Characters</span>
+                    </div>
+                    <div class="stat-preview-item">
+                        <span class="stat-emoji">📝</span>
+                        <span>Alphabet Count</span>
+                    </div>
+                    <div class="stat-preview-item">
+                        <span class="stat-emoji">🔢</span>
+                        <span>Number Count</span>
+                    </div>
+                    <div class="stat-preview-item">
+                        <span class="stat-emoji">✨</span>
+                        <span>Special Characters</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Character Count. A simple and powerful text analysis tool.</p>
+    </footer>
+
+    <!-- Link to JavaScript file for UI enhancements -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

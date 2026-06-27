@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character encoding and viewport responsiveness -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Page title -->
+    <title>Analysis Results - Character Count</title>
+    
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- Google Fonts for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- Logo / Brand Name -->
+            <div class="nav-brand">
+                <span class="brand-icon">📝</span>
+                <h1>Character Count</h1>
+            </div>
+            
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="{{ url_for('dashboard') }}" class="nav-link">Home</a></li>
+                <li><a href="{{ url_for('dashboard') }}" class="nav-link active">New Analysis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- Results Header Section -->
+        <section class="results-header">
+            <h2 class="results-title">Analysis Results</h2>
+            <p class="results-subtitle">Your detailed text statistics are ready</p>
+        </section>
+
+        <!-- Input Text Display Section -->
+        <section class="text-preview-section">
+            <h3 class="section-label">Your Text</h3>
+            <div class="text-preview-box">
+                <p id="preview-text">{{ results.input_text }}</p>
+            </div>
+        </section>
+
+        <!-- Primary Statistics Grid (Main Metrics) -->
+        <section class="results-grid primary-grid">
+            <!-- Total Characters Card -->
+            <div class="result-card primary-card">
+                <div class="card-header">
+                    <span class="card-icon">🎯</span>
+                    <h3 class="card-title">Total Characters</h3>
+                </div>
+                <div class="card-value">{{ results.total_characters }}</div>
+                <p class="card-description">Including spaces and punctuation</p>
+            </div>
+
+            <!-- Alphabet Count Card -->
+            <div class="result-card primary-card">
+                <div class="card-header">
+                    <span class="card-icon">🔤</span>
+                    <h3 class="card-title">Alphabet Count</h3>
+                </div>
+                <div class="card-value">{{ results.alphabet_count }}</div>
+                <p class="card-description">Letters only (a-z, A-Z)</p>
+            </div>
+
+            <!-- Number Count Card -->
+            <div class="result-card primary-card">
+                <div class="card-header">
+                    <span class="card-icon">🔢</span>
+                    <h3 class="card-title">Number Count</h3>
+                </div>
+                <div class="card-value">{{ results.number_count }}</div>
+                <p class="card-description">Digits only (0-9)</p>
+            </div>
+
+            <!-- Special Character Count Card -->
+            <div class="result-card primary-card">
+                <div class="card-header">
+                    <span class="card-icon">✨</span>
+                    <h3 class="card-title">Special Characters</h3>
+                </div>
+                <div class="card-value">{{ results.special_count }}</div>
+                <p class="card-description">Symbols and punctuation</p>
+            </div>
+        </section>
+
+        <!-- Secondary Statistics Grid (Additional Metrics) -->
+        <section class="results-grid secondary-grid">
+            <!-- Space Count Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">⎵</span>
+                    <h3 class="card-title">Space Count</h3>
+                </div>
+                <div class="card-value">{{ results.space_count }}</div>
+                <p class="card-description">All whitespace characters</p>
+            </div>
+
+            <!-- Word Count Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">📝</span>
+                    <h3 class="card-title">Word Count</h3>
+                </div>
+                <div class="card-value">{{ results.word_count }}</div>
+                <p class="card-description">Total number of words</p>
+            </div>
+
+            <!-- Sentence Count Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">📄</span>
+                    <h3 class="card-title">Sentence Count</h3>
+                </div>
+                <div class="card-value">{{ results.sentence_count }}</div>
+                <p class="card-description">Sentences (. ! ?)</p>
+            </div>
+
+            <!-- Vowel Count Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">🎤</span>
+                    <h3 class="card-title">Vowel Count</h3>
+                </div>
+                <div class="card-value">{{ results.vowel_count }}</div>
+                <p class="card-description">A, E, I, O, U</p>
+            </div>
+
+            <!-- Consonant Count Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">🎵</span>
+                    <h3 class="card-title">Consonant Count</h3>
+                </div>
+                <div class="card-value">{{ results.consonant_count }}</div>
+                <p class="card-description">Non-vowel letters</p>
+            </div>
+
+            <!-- Average Word Length Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">📊</span>
+                    <h3 class="card-title">Avg Word Length</h3>
+                </div>
+                <div class="card-value">{{ results.avg_word_length }}</div>
+                <p class="card-description">Characters per word</p>
+            </div>
+
+            <!-- Average Sentence Length Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">📈</span>
+                    <h3 class="card-title">Avg Sentence Length</h3>
+                </div>
+                <div class="card-value">{{ results.avg_sentence_length }}</div>
+                <p class="card-description">Words per sentence</p>
+            </div>
+
+            <!-- Character Percentage Card -->
+            <div class="result-card secondary-card">
+                <div class="card-header">
+                    <span class="card-icon">🎯</span>
+                    <h3 class="card-title">Letter Density</h3>
+                </div>
+                <div class="card-value">
+                    {% if results.total_characters > 0 %}
+                        {{ "%.1f"|format((results.alphabet_count / results.total_characters) * 100) }}%
+                    {% else %}
+                        0%
+                    {% endif %}
+                </div>
+                <p class="card-description">Letters vs total chars</p>
+            </div>
+        </section>
+
+        <!-- Quick Actions Section -->
+        <section class="quick-actions">
+            <!-- Copy Results Button -->
+            <button class="btn btn-action" id="copy-results-btn" title="Copy all results to clipboard">
+                <span class="btn-icon">📋</span>
+                <span class="btn-text">Copy Results</span>
+            </button>
+
+            <!-- Analyze Another Text Button -->
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                <span class="btn-icon">➕</span>
+                <span class="btn-text">Analyze Another Text</span>
+            </a>
+        </section>
+
+        <!-- Success Notification (Hidden by default, shown by JS) -->
+        <div class="notification" id="copy-notification" style="display: none;">
+            <span class="notification-icon">✓</span>
+            <span class="notification-text">Results copied to clipboard!</span>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Character Count. A simple and powerful text analysis tool.</p>
+    </footer>
+
+    <!-- Link to JavaScript file for interactive features -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
